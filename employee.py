@@ -1,8 +1,10 @@
 from person import *
+from movie import *
 
 
 class Employee(Person):
     emp_id = 1000
+    movies={}
     def __init__(self, position):
         self.position = position
         self.__employee_id = self.set_id()
@@ -19,6 +21,20 @@ class Employee(Person):
         cls.emp_id += 1
         num = cls.emp_id
         return 'E' + str(num)
+    
+    def add_movie(self, film , year):
+        movie_fetcher = MovieFetcher()
+        new_movie = movie_fetcher.fetch_movie(film, year)
+        if new_movie.id_ in Employee.movies:
+            print(f"{film} is exist.")
+        else:
+            Employee.movies[new_movie.id_] = new_movie
+            print (f"{film} added")            
+    
+    @classmethod
+    def shoe_movies (cls):
+        for item in cls.movies.values():
+            print(item.title)
 
 
 if __name__ == "__main__":
@@ -30,3 +46,8 @@ if __name__ == "__main__":
     
     e3 = Employee('p3')
     print(e3.employee_id)
+
+    e1.add_movie("oppenheimer", "2023")
+    e3.add_movie("The holdovers", "2023")
+    e2.add_movie("The holdovers", "2023")
+    e1.shoe_movies()
