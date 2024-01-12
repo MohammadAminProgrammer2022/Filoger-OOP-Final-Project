@@ -42,14 +42,12 @@ class CinemaHall:
         
 
 if __name__ == "__main__":
+    # checking new method, seat_number_generator()
     c1 = CinemaHall('c1', 10)
     c1.seat_number_generator()
     print(c1.reserved_seats)
 
-        self.movies_showing = movies_showing
-
-
-if __name__ == "__main__":
+    # employee and movie class tests
     e1 = Employee('p1')
     print(e1.employee_id)
     
