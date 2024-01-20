@@ -1,25 +1,42 @@
+from statistics import mean
 import requests
 
 class Movie:
-    def __init__(self, id_, title, runtime, rating): #, showtimes, status, average_rating, feedback_list):
+    def __init__(self, id_, title, runtime, rating, genre, director, actors, plot, start_time=None, end_time=None,date=None): #, showtimes, status, average_rating, feedback_list):
         self.id_ = id_
         self.title = title
         self.runtime = runtime
         self.rating = rating
-        '''self.showtimes = showtimes
-        self.status = status
-        self.average_rating = average_rating
-        self.feedback_list = feedback_list'''
+        self.genre = genre
+        self.director = director
+        self.actors = actors
+        self.plot = plot
+        # employee | employee will modify these attributes below based on cinema planning and management
+        # start time
+        self.start_time = start_time
+        # end time
+        self.end_time = end_time
+        # date
+        self.date = date
+        # rating - feedback
+        self.usercinema_rating = {} # data saving structure => phone : rate_number
+        self.comment = {} # data saving structure => phone : string
 
     def __str__(self):
-        return f"{self.id_}, {self.title}, {self.runtime}, {self.rating}"
-    #, {self.showtimes}, {self.status}, {self.average_rating}, {self.feedback_list}\n"
+        return f"ID: {self.id_} * Title: {self.title} * Runtime: {self.runtime} * Rating: {self.rating} * Genre: {self.genre} * Director: {self.director} * Actors: {self.actors} * Plot: {self.plot} * Show date: {self.date} * Start time: {self.start_time} * User Cinema Comment: {self.comment} * User Cinema Rating: {self.usercinema_rating}"
+    
+    def user_rate(self,phone, rate):
+        self.usercinema_rating[phone] = rate
+    
+    def user_comment(self, phone, comment):
+        self.comment[phone] = comment
+
 
 class MovieFetcher:
     url = "https://www.omdbapi.com/?"
 
     @staticmethod
-    def fetch_movie(film, year):
+    def fetch_movie(film, year, start_time=None, end_time=None, date=None):
         film = film.replace(" ","+")
         params = {'t': film, 'y': year, 'apikey': '6610dc1a'}
         response = requests.get(MovieFetcher.url, params=params)
@@ -32,12 +49,18 @@ class MovieFetcher:
                 movie_items["imdbID"],
                 movie_items["Title"],
                 movie_items["Runtime"],
-                movie_items["imdbRating"]
+                movie_items["imdbRating"],
+                movie_items["Genre"],
+                movie_items["Director"],
+                movie_items["Actors"],
+                movie_items["Plot"],
+                start_time,
+                end_time,
+                date
             )
             return obj_movie
         else:
-            return "Movie not found!"
-
+            return None
 
 if __name__ == '__main__':
     movie_fetcher = MovieFetcher()
