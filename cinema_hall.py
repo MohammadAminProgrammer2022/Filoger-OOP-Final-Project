@@ -1,18 +1,15 @@
 from employee import *
 
 class CinemaHall:
-    # class attributes
     all_users = {}
     all_employees = {}
     reserved_seats = []
     number_seat = 0
-    availabel_movies = {} # save structure ==> {movie_id : movie_obj}
-    test = 12
+    availabel_movies = {} 
     
     def __init__(self, name, total_seats):
         self.name = name
         self.total_seats = total_seats
-
     
     def __str__(self):
         return f"Cinema name: {self.name}, Total seats: {self.total_seats}"

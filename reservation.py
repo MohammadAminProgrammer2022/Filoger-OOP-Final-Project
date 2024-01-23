@@ -24,10 +24,7 @@ class Reservation:
         cls.res_id += 1
         num = cls.res_id
         return 'Res' + str(num)
-    
-    
-    # movie existance
+
+
 if __name__ == "__main__":
     res = Reservation(1, 2, 4, 6, 9)
-    #num = res.seat_number_generator(4, [1,2])
-    #print(f"num: {num}")
