@@ -1,10 +1,3 @@
-# ############################## MANAGER CLASS ############################
-# have a list of all the users
-# have a list of all the employees
-# ....
-# ################################################################
-
-
 from employee import *
 
 class CinemaHall:
